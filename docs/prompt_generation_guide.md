@@ -8,6 +8,93 @@
 - “帮我做一个 xx 功能” 只是需求描述，不是可派发、可验收、可收口的开发 prompt。
 - 合格 prompt 的目标不是把任务说得更长，而是把本轮范围、完成标准、回传结构和 PRD 边界说清楚。
 - 合格 prompt 还要先判断任务类型，并在发出前判断质量分数是否够稳。
+- 在任何 rewrite 或 prompt generation 前，先做 `Prompt Gate`。
+- 如果 Gate 不是 `PASS`，不要把输入原样发出去。
+- 字段齐全，不等于 `Prompt Gate = PASS`。
+- 最终可派单 prompt 需要明确 `PASS evidence`，不能只长得像标准 prompt。
+- `Gate Result` 需要落档，不能只停留在聊天里。
+
+## 先产出 Gate 判断，再决定下一步
+
+进入 prompt 生成前，不要先靠感觉决定“这是不是能发的 prompt”。
+
+先做：
+
+1. 读 `docs/prompt_gate_protocol.md`
+2. 用 `templates/prompt_gate_result_template.md` 产出 Gate 结果
+3. 根据 Gate 状态决定后续动作
+
+Gate 状态与动作映射：
+
+- `PASS`：进入 prompt scoring / `Build Delegation`
+- `REWRITE_REQUIRED`：先 rewrite，禁止直接派单
+- `CLARIFICATION_REQUIRED`：只允许最小补问，禁止直接派单
+
+Gate 后先做：
+
+- 把本次 `Prompt Gate Result` 落到 canonical 位置
+- 再决定进入 clarify / rewrite / pass
+
+补充提醒：
+
+- 如果一个输入已经很像标准 round prompt，也要防止它只是 `pseudo-qualified prompt`
+- 不能因为它写了 round / stage / PRD / test / return structure，就默认给 `PASS`
+
+这时再按需要读：
+
+- `docs/prompt_gate_result_logging_guide.md`
+- `docs/raw_request_to_round_prompt_guide.md`
+- `docs/raw_prompt_defect_checklist.md`
+- `docs/round_split_decision_guide.md`
+- `docs/build_delegation_input_contract.md`
+
+如果 Gate 结果是 `REWRITE_REQUIRED`，再用：
+
+- `templates/round_prompt_rewrite_template.txt`
+
+把草稿收成合格 round prompt。
+
+如果 Gate 结果是 `CLARIFICATION_REQUIRED`，不要先 rewrite；应先解决最小阻塞问题。
+
+建议使用：
+
+- `templates/clarification_min_question_template.md`
+
+什么时候该问，什么时候不该问：
+
+- 如果缺的是项目锁定、当前轮次、PRD 状态、关键冲突或会直接影响拆轮判断的信息，应先问
+- 如果上下文已经足够，只是目标太散、边界太松、验收太空，应直接 `REWRITE_REQUIRED`，不要先问
+
+怎么避免多问：
+
+- 每次 Gate cycle 只问一个当前最阻塞的问题
+- 用户答完后先 re-gate
+- 如果仍未通过，再决定是进入 rewrite，还是下一次新的单问题 clarify
+
+## 如何识别 pseudo-qualified prompt，不被格式欺骗
+
+建议再读：
+
+- `docs/pseudo_qualified_prompt_detection_guide.md`
+
+高风险信号：
+
+- 目标区同时塞多个核心能力主题
+- `必做` 同时列多个主闭环
+- 验收项无法围绕一个主闭环解释
+- fallback / blocker 规则只是空壳
+- 没有 `why-not-split`
+- 没有 `PASS evidence`
+
+判断原则：
+
+- 字段齐全，只是形式完整
+- 闭环收口，才是实质完整
+
+所以：
+
+- 看起来正规，不等于真的能派
+- 真正的 `PASS` 必须拿得出 `PASS evidence`
 
 ## 什么叫合格的开发派单 prompt
 
@@ -27,6 +114,8 @@
 - 如果中途发现新需求、隐性要求或 PRD 缺口，该怎么处理？
 
 如果这些问题答不出来，这个 prompt 就还没收口，不应该直接派单。
+
+如果这些问题答不出来，Gate 也不应给 `PASS`。
 
 ## 先选任务类型，再写 prompt
 

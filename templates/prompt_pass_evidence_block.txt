@@ -1,0 +1,11 @@
+【PASS Evidence｜只有真正通过 Gate 的 round prompt 才能写这段】
+- Prompt Gate：`PASS`
+- Round main closure：`用一句话写清本轮唯一主闭环`
+- Why not split：`说明为什么本轮不需要拆轮；如果存在多个子项，说明它们为什么只是必要接线，而不是独立闭环`
+- Fallback / blocker rule：`写清关键依赖失败时如何降级，哪些情况必须直接阻塞`
+- Delegation contract：`satisfied`
+
+如果这段写不出来，通常说明：
+
+- 当前输入还没有真正通过 Gate
+- 或仍然是 pseudo-qualified prompt

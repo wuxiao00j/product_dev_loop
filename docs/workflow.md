@@ -11,6 +11,14 @@
 - `PRD.md` 一旦 `locked`，范围变化只能先走 `CHANGE_PROPOSALS.md`
 - 不把执行器长回执直接当项目记录
 - 不把执行器自我评价直接当事实
+- 用户草稿需求不等于合格派单 prompt
+- 需求写得很长，也不等于 prompt 已经收口
+- 所有准备进入 `Build Delegation` 的输入，都必须先经过 `Prompt Gate`
+- 只有 `Prompt Gate = PASS`，才允许进入正式派单
+- `REWRITE_REQUIRED` 和 `CLARIFICATION_REQUIRED` 都禁止直接进入 `Build Delegation`
+- 字段齐全，不等于 `Prompt Gate = PASS`
+- Gate 后还要检查 `PASS evidence`
+- Gate 后先记录，再决定 clarify / rewrite / pass
 
 ## 0.1 接手已有项目时先做什么
 
@@ -166,6 +174,119 @@
 - 用户已确认当前轮开发目标
 - 当前目标可以拆成一个小步开发任务
 
+## 2.5 Build Delegation 强制入口门：Prompt Gate
+
+这一步不是第六阶段，而是 `Build Delegation` 的强制入口门。
+
+标准分叉必须是：
+
+`Input Intake -> Prompt Gate -> 记录 Gate Result -> PASS / REWRITE_REQUIRED / CLARIFICATION_REQUIRED`
+
+然后再继续：
+
+- `PASS -> scoring -> Build Delegation`
+- `REWRITE_REQUIRED -> rewrite -> re-gate`
+- `CLARIFICATION_REQUIRED -> 最小补问 -> re-gate`
+
+硬规则：
+
+- 未经 `Prompt Gate PASS`，不得把用户原始任务块视为可直接派给执行器的 round prompt
+- `Build Delegation` 只接受已通过 Gate 的 round prompt
+- Gate 结果必须结构化输出，不允许只凭脑内判断
+- 即使字段齐全，只要仍属于 `pseudo-qualified prompt`，也不得放行
+- `Gate Result` 必须落档
+
+### 输入 Intake
+
+- 用户原始任务块
+- 已整理输入
+- 已收口 round prompt
+- 接手后从项目记录中提炼的候选 prompt
+
+### Gate 输入分类
+
+- `qualified round prompt`
+- `raw request`
+- `ambiguous input`
+- `pseudo-qualified prompt`
+
+### 输入
+
+- Input Intake 的候选输入
+- `PROJECT_STATE.md`
+- `PRD.md`
+- 最近一轮 `PROGRESS.md`
+- 最近一轮 `IMPLEMENTATION_NOTES.md`
+
+### 动作
+
+1. 先用 `docs/prompt_gate_protocol.md` 判断当前输入属于 `qualified round prompt / raw request / ambiguous input / pseudo-qualified prompt`
+2. 用 `templates/prompt_gate_result_template.md` 输出结构化 Gate 结果
+3. Gate 至少检查：
+   - 项目 / 轮次 / 阶段 / PRD 状态
+   - 任务类型是否可稳定归类
+   - 是否为单轮最小闭环
+   - 是否明确本轮不做
+   - 是否有验收标准
+   - 是否有依赖 / fallback / blocker 规则
+   - 是否有结构化回传
+   - 是否有测试要求
+   - 是否有 PRD 对照
+   - 是否属于 `pseudo-qualified prompt`
+   - 是否具备 `PASS evidence`
+4. 如果项目不唯一、当前轮次不清楚、PRD 状态不清楚或关键冲突未解，给 `CLARIFICATION_REQUIRED`
+5. 如果输入仍是 raw request、命中一票否决项、多主闭环混合，或属于 `pseudo-qualified prompt`，给 `REWRITE_REQUIRED`
+6. 如果同时出现多个核心能力主题、多个交付入口、依赖接入与实现混合、功能与优化混合，默认按 `docs/round_split_decision_guide.md` 建议拆轮
+7. 如果 `PRD.md` 已 `locked` 且当前输入包含范围变化，禁止直接进入 `Build Delegation`；应进入 `CHANGE_PROPOSALS.md`，或先收缩目标
+8. 即使 Gate 初判为 `PASS`，仍要检查 `PASS evidence`
+9. 只有 Gate 结果为 `PASS`、`PASS evidence` 成立，且满足 `docs/build_delegation_input_contract.md`，才允许进入正式 `Build Delegation`
+10. Gate 结果统一记录到 `projects/<project>/PROMPTS/GATE_RESULTS.md`
+
+### Gate 输出状态
+
+- `PASS`
+- `REWRITE_REQUIRED`
+- `CLARIFICATION_REQUIRED`
+
+### 输出
+
+- 一份结构化 `Prompt Gate Result`
+- 更新后的 `projects/<project>/PROMPTS/GATE_RESULTS.md`
+- 一次 Gate 落档记录
+- 或 rewrite 任务
+- 或最小补问
+- 或拆轮建议
+- 或进入 `CHANGE_PROPOSALS.md` / `阻塞等待` 的判断
+
+### 进入下一阶段条件
+
+- Gate 结果为 `PASS`
+- `PASS evidence` 成立
+- 输入满足 `Build Delegation` 输入契约
+- prompt 已具备可派发条件
+
+### 非 PASS 时的后续动作
+
+#### `REWRITE_REQUIRED`
+
+- 先落档
+- 进入 `prompt rewrite`
+- rewrite 后重新过 Gate
+- re-gate 后再次落档
+- 未重新拿到 `PASS` 前，不进入 `Build Delegation`
+
+#### `CLARIFICATION_REQUIRED`
+
+- 先落档
+- 只允许最小补问
+- 补问只针对当前最阻塞推进的那个问题
+- 只问一个问题，不连环追问
+- 记录这个最小补问
+- 用户给出最短回复后先记录回复
+- 拿到澄清后重新过 Gate
+- re-gate 后再次落档
+- 未重新拿到 `PASS` 前，不进入 `Build Delegation`
+
 ## 3. 阶段三：Build Delegation
 
 ### 输入
@@ -174,17 +295,24 @@
 - `PRD.md`
 - 最近一轮 `PROGRESS.md`
 - 最近一轮 `IMPLEMENTATION_NOTES.md`
+- `Prompt Gate Result = PASS`
+- 明确 `PASS evidence`
+- 满足 `docs/build_delegation_input_contract.md` 的 round prompt
 - 按需补读 `ARCHITECTURE.md`、`CHANGE_PROPOSALS.md`、`IMPLICIT_REQUIREMENTS.md`、`DECISIONS.md`
 
 ### 动作
 
 1. 主 agent 先检查上下文是否完整、是否冲突
-2. 判断当前轮最适合推进什么，优先处理最影响闭环的一件事
-3. 先判断本轮任务类型是 `build`、`fix`、`polish` 还是 `unblock`
-4. 把本轮目标收敛成一个清楚的小任务
-5. 生成的是“合格的收口型 prompt”，不是普通需求描述
-6. 生成 `PROMPTS/round-xx-build.txt`
-7. 在提示词里明确：
+2. 先确认输入已经拿到 `Prompt Gate = PASS`
+3. 再确认 `PASS evidence` 成立，而不是只长得像标准 prompt
+4. 再确认输入满足 `docs/build_delegation_input_contract.md`
+5. 如果 Gate 结果不是 `PASS`，或 `PASS evidence` 不成立，立即停止，不继续派单
+6. 判断当前轮最适合推进什么，优先处理最影响闭环的一件事
+7. 先判断本轮任务类型是 `build`、`fix`、`polish` 还是 `unblock`
+8. 把本轮目标收敛成一个清楚的小任务
+9. 生成的是“合格的收口型 prompt”，不是普通需求描述
+10. 生成 `PROMPTS/round-xx-build.txt`
+11. 在提示词里明确：
    - 任务类型
    - 当前项目信息
    - 当前轮次
@@ -194,16 +322,18 @@
    - 当前目标
    - 本轮边界
    - 验收标准
+   - 依赖 / 降级规则
    - 不要扩散
    - 测试要求
    - PRD 对照要求
    - 新需求与隐性要求处理规则
-8. 根据任务类型补强重点：
+   - `PASS evidence`
+12. 根据任务类型补强重点：
    - `build`：写最小闭环、关键数据流和验收边界
    - `fix`：写复现现象、修复目标、回归风险和修后验证
    - `polish`：写可动范围和不可动范围，防止借机重构
    - `unblock`：写阻塞点、解阻目标、临时方案与正式方案
-9. 明确要求外部执行器返回结构化结果：
+13. 明确要求外部执行器返回结构化结果：
    - 已完成
    - 未完成
    - 关键文件
@@ -211,8 +341,9 @@
    - `stub / mock / 假数据 / 隐藏入口 / 未接线`
    - 测试建议
    - 与 PRD 不一致处
-10. 在输出前用 checklist 自检，确认它不是“只有功能描述的普通需求文案”
-11. 再按评分规约判断：
+14. 在输出前先确认 Gate 结果没有失效，`PASS evidence` 仍成立，输入仍满足 `Build Delegation` 输入契约
+15. 再用 `templates/prompt_quality_checklist.md` 自检，确认它不是“只有功能描述的普通需求文案”
+16. 再按评分规约判断：
    - 是否低于最低标准
    - 是否只是“仅及格”
    - 是否已达到“可直接发”
@@ -221,7 +352,10 @@
 
 - 普通需求描述只是在说“想做什么”
 - 合格的收口型 prompt 必须把“这轮做什么、这轮不做什么、怎样算完成、做完必须怎么回传”一起写清楚
-- 更稳的收口型 prompt 还会写清任务类型、类型特有风险，以及收到什么反馈时应该停下来而不是继续扩功能
+- 更稳的收口型 prompt 还会写清任务类型、类型特有风险、依赖 / 降级规则，以及收到什么反馈时应该停下来而不是继续扩功能
+- 如果输入仍像功能清单、issue 池或 TODO 打包，就说明 Gate 不应给 `PASS`
+- 如果输入只是字段齐全、格式正规，但仍是多主闭环或没有有效 `PASS evidence`，也不应给 `PASS`
+- 只有 `PASS` 输入才有资格被当成 `Build Delegation` 输入
 
 ### 输出
 

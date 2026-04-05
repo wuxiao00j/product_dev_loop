@@ -4,7 +4,90 @@
 
 目标不是把模板填满，而是先判断当前轮最适合做什么，再把这一轮写成可执行、可验证、可回传的 prompt。
 
+## Step 0. 先执行 Prompt Gate
+
+不要默认用户手里的那段需求已经是可发 prompt。先执行 `Prompt Gate`。
+
+先做这几步：
+
+1. 读 `docs/prompt_gate_protocol.md`
+2. 用 `templates/prompt_gate_result_template.md` 输出结构化 Gate 结果
+3. 先把本次 Gate 结果记录到 `projects/<project>/PROMPTS/GATE_RESULTS.md`
+4. 判断输入属于：
+   - `qualified round prompt`
+   - `raw request`
+   - `ambiguous input`
+   - `pseudo-qualified prompt`
+5. 检查 Gate 维度：
+   - 项目 / 轮次 / 阶段 / PRD 状态
+   - 任务类型是否可稳定归类
+   - 是否为单轮最小闭环
+   - 是否明确本轮不做
+   - 是否有验收标准
+   - 是否有依赖 / fallback / blocker 规则
+   - 是否有结构化回传
+   - 是否有测试要求
+   - 是否有 PRD 对照
+   - 是否属于 `pseudo-qualified prompt`
+   - 是否具备 `PASS evidence`
+6. 再输出 Gate 状态：
+   - `PASS`
+   - `REWRITE_REQUIRED`
+   - `CLARIFICATION_REQUIRED`
+
+状态动作映射：
+
+- `PASS`：记录后继续进入下面的正式 prompt 生成步骤
+- `REWRITE_REQUIRED`：记录后先读 `docs/raw_request_to_round_prompt_guide.md`、`docs/raw_prompt_defect_checklist.md`、`docs/round_split_decision_guide.md`，再 rewrite
+- `CLARIFICATION_REQUIRED`：记录后只允许最小补问，不允许直接 rewrite 或派单
+
+补充规则：
+
+- 如果多主闭环混合，默认 `REWRITE_REQUIRED` 并建议拆轮
+- 如果项目不唯一、当前轮次不清楚或 PRD 状态不清楚，默认 `CLARIFICATION_REQUIRED`
+- 如果字段齐全但仍属于 `pseudo-qualified prompt`，默认 `REWRITE_REQUIRED`
+- 未经 Gate `PASS`，不得继续进入 `Build Delegation`
+
+## Step 0.1 Gate 为 REWRITE_REQUIRED 时怎么做
+
+1. 读 `docs/raw_request_to_round_prompt_guide.md`
+2. 用 `docs/raw_prompt_defect_checklist.md` 判断为什么它不能直接发
+3. 用 `docs/round_split_decision_guide.md` 判断是否默认建议拆轮
+4. 用 `templates/round_prompt_rewrite_template.txt` 做 rewrite
+5. rewrite 完成后，重新过 `Prompt Gate`
+
+## Step 0.2 Gate 为 CLARIFICATION_REQUIRED 时怎么做
+
+1. 用 `templates/clarification_min_question_template.md`
+2. 只提出一个最小阻塞问题
+3. 不要顺手 rewrite
+4. 不要顺手派单
+5. 记录这个最小补问
+6. 拿到用户最短回复后，先记录回复
+7. 再重新过 `Prompt Gate`
+8. re-gate 后更新 `projects/<project>/PROMPTS/GATE_RESULTS.md`
+
 ## Step 1. 先读上下文，不要先写 prompt
+
+只有 Gate = `PASS` 后，才进入本步骤。
+
+## Step 1.1 检查 PASS evidence
+
+即使 Gate 初判已经倾向 `PASS`，也不要立刻进入 `Build Delegation`。
+
+还要再检查：
+
+1. 是否有一句话写清 `Round main closure`
+2. 是否明确 `Why not split`
+3. 是否写清 `Fallback / blocker rule`
+4. 是否能确认 `Delegation contract: satisfied`
+
+如果以上任一项写不出来：
+
+- 说明当前输入还没有真正通过 Gate
+- 应回退为 `REWRITE_REQUIRED`
+
+只有 `PASS evidence` 成立后，才继续后面的 prompt 生成和派单步骤。
 
 生成本轮 prompt 前，先按这个顺序阅读：
 
