@@ -1,0 +1,13 @@
+# Round Prompt Skeleton
+
+- status: `deferred_until_clarification`
+- input_type: `ambiguous_input`
+- gate_result: `CLARIFICATION_REQUIRED`
+- ready_for_delegation: `false`
+- skeleton_generation: `deferred_until_clarification`
+
+## Clarification Block
+
+- clarification_reason: 项目未锁定，当前无法稳定判断这是哪个项目的 Gate 输入。
+- minimal_clarification_question: 你这次要继续的是哪个项目？
+- next_action_after_answer: 拿到项目名后，先用这条最短回复重新过 Gate，再判断是 rewrite 还是继续 clarify。

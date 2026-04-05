@@ -1,0 +1,23 @@
+{
+  "input_type": "raw_request",
+  "gate_result": "REWRITE_REQUIRED",
+  "status": "draft_not_ready_for_delegation",
+  "ready_for_delegation": false,
+  "deferred": false,
+  "recommended_next_step": "rewrite_more",
+  "rewrite_actions": [
+    "add_contract_fields",
+    "add_fallback",
+    "add_pass_evidence",
+    "tighten_scope"
+  ],
+  "first_fix_order": [
+    {
+      "section": "当前项目信息",
+      "priority": "critical",
+      "expected_outcome": "后续 section 的约束会更稳定。",
+      "stop_condition": "出现明确项目名、轮次、阶段和 PRD 状态即可。",
+      "check_signal": "已出现项目名 / 轮次 / 阶段 / PRD 状态。"
+    }
+  ]
+}

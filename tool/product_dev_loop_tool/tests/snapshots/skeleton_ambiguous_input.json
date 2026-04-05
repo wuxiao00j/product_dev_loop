@@ -1,0 +1,9 @@
+{
+  "input_type": "ambiguous_input",
+  "gate_result": "CLARIFICATION_REQUIRED",
+  "status": "deferred_until_clarification",
+  "ready_for_delegation": false,
+  "deferred": true,
+  "minimal_clarification_question": "你这次要继续的是哪个项目？",
+  "clarification_reason": "项目未锁定，当前无法稳定判断这是哪个项目的 Gate 输入。"
+}

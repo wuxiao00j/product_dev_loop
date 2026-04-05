@@ -1,0 +1,175 @@
+{
+  "input_type": "qualified_round_prompt",
+  "gate_result": "PASS",
+  "task_type_guess": "build",
+  "status": "skeleton_ready_for_agent_refinement",
+  "ready_for_delegation": false,
+  "deferred": false,
+  "project": "product-dev-loop-tool",
+  "round_id": "round-01",
+  "stage": "Build Delegation",
+  "prd_status": "locked",
+  "missing_items": [],
+  "rewrite_actions": [],
+  "split_plan": [],
+  "minimal_clarification_question": "",
+  "clarification_reason": "",
+  "next_action_after_answer": "",
+  "notes": [
+    "这是 skeleton / draft，只用于 agent 二次收口，不是最终可直接派单文本。"
+  ],
+  "sections": {
+    "task_type": {
+      "title": "任务类型",
+      "content": [
+        "- 本轮类型：`build`",
+        "- 选择原因：`待 agent 根据 PRD 与反馈再确认`"
+      ],
+      "status": "filled",
+      "reason": "当前 section 已有可用内容，可作为 agent 二次收口底稿。",
+      "source_type": "source",
+      "related_contract_items": [],
+      "repair_hints": []
+    },
+    "project_info": {
+      "title": "当前项目信息",
+      "content": [
+        "- 项目名：`product-dev-loop-tool`",
+        "- 当前轮次：`round-01`",
+        "- 当前阶段：`Build Delegation`",
+        "- 当前 PRD 状态：`locked`",
+        "- 当前 Gate 状态：`PASS`"
+      ],
+      "status": "filled",
+      "reason": "当前 section 已有可用内容，可作为 agent 二次收口底稿。",
+      "source_type": "source",
+      "related_contract_items": [],
+      "repair_hints": []
+    },
+    "required_context": {
+      "title": "执行前必读上下文",
+      "content": [
+        "- 必读：`PROJECT_STATE.md`",
+        "- 必读：`PRD.md`",
+        "- 必读：最近一轮 `PROGRESS.md`",
+        "- 必读：最近一轮 `IMPLEMENTATION_NOTES.md`",
+        "- 按需补读：`ARCHITECTURE.md` / `CHANGE_PROPOSALS.md` / `TEST_RESULTS.md`"
+      ],
+      "status": "filled",
+      "reason": "当前 section 已有可用内容，可作为 agent 二次收口底稿。",
+      "source_type": "inferred",
+      "related_contract_items": [],
+      "repair_hints": []
+    },
+    "round_goal": {
+      "title": "本轮目标",
+      "content": [
+        "- 本轮只解决：实现一个可从文件读取文本的 Prompt Gate Checker CLI，能输出 `input_type / gate_result / blockers / split_recommendation / pass_evidence_present`",
+        "- 这轮完成后，用户可以用一条命令检查 raw request、pseudo-qualified prompt 和 qualified round prompt 的 Gate 结果",
+        "- 本轮目标来源：`round-01 / Prompt Gate Checker MVP`"
+      ],
+      "status": "filled",
+      "reason": "当前 section 已有可用内容，可作为 agent 二次收口底稿。",
+      "source_type": "source",
+      "related_contract_items": [],
+      "repair_hints": []
+    },
+    "round_boundary": {
+      "title": "本轮边界",
+      "content": [
+        "- 必做：",
+        "- CLI `gate` 命令",
+        "- 规则化字段输出",
+        "- `--json` 输出",
+        "- 不做：",
+        "- `contract` 命令",
+        "- `log-gate` 命令",
+        "- Web 页面",
+        "- GUI",
+        "- LLM API 接入",
+        "- 保持不动：",
+        "- 其他未进入 round-01 的能力"
+      ],
+      "status": "filled",
+      "reason": "当前 section 已有可用内容，可作为 agent 二次收口底稿。",
+      "source_type": "source",
+      "related_contract_items": [],
+      "repair_hints": []
+    },
+    "acceptance": {
+      "title": "验收标准",
+      "content": [
+        "- 验收项 1：对 raw request 输入返回 `raw_request` 与 `REWRITE_REQUIRED`",
+        "- 验收项 2：对 pseudo-qualified prompt 输入返回 `pseudo_qualified_prompt` 与拆轮建议",
+        "- 验收项 3：终端默认输出稳定字段，`--json` 输出有效 JSON"
+      ],
+      "status": "filled",
+      "reason": "当前 section 已有可用内容，可作为 agent 二次收口底稿。",
+      "source_type": "source",
+      "related_contract_items": [],
+      "repair_hints": []
+    },
+    "dependency_rules": {
+      "title": "依赖与降级规则",
+      "content": [
+        "- 关键依赖：本地 Python 3、规则文件、样例输入",
+        "- 依赖满足时：按规则完成 gate CLI",
+        "- 依赖不满足时允许的降级方案：如果样例文件缺失，可先补最小样例继续；如果 README 未补完整，不阻塞 CLI 验证",
+        "- 哪些情况应直接标记阻塞，不继续扩做：如果输入文件无法读取，直接报错并停止，不自动猜测内容"
+      ],
+      "status": "filled",
+      "reason": "当前 section 已有可用内容，可作为 agent 二次收口底稿。",
+      "source_type": "source",
+      "related_contract_items": [],
+      "repair_hints": []
+    },
+    "test_requirement": {
+      "title": "测试要求",
+      "content": [
+        "- 返回测试入口、操作步骤、测试数据、预期结果、失败判定"
+      ],
+      "status": "filled",
+      "reason": "当前 section 已有可用内容，可作为 agent 二次收口底稿。",
+      "source_type": "source",
+      "related_contract_items": [],
+      "repair_hints": []
+    },
+    "structured_return": {
+      "title": "完成后必须结构化回传",
+      "content": [
+        "1. 已完成",
+        "2. 未完成",
+        "3. 关键代码信息",
+        "4. `stub / mock / 假数据 / 隐藏入口 / 未接线`",
+        "5. 风险与需确认点",
+        "6. 测试建议",
+        "7. PRD 对照"
+      ],
+      "status": "filled",
+      "reason": "当前 section 已有可用内容，可作为 agent 二次收口底稿。",
+      "source_type": "source",
+      "related_contract_items": [],
+      "repair_hints": []
+    },
+    "pass_evidence": {
+      "title": "PASS Evidence",
+      "content": [
+        "- Prompt Gate：`PASS`",
+        "- Round main closure：`已具备，但 agent 应再确认一句话主闭环表述`",
+        "- Why not split：`已具备，但 agent 应再确认为什么其余子项只是必要接线`",
+        "- Fallback / blocker rule：`已具备，但 agent 应确认降级边界和直接阻塞条件保持清晰`",
+        "- Delegation contract：`satisfied`",
+        "- 说明：`这是 skeleton / draft，不是最终放行文本`"
+      ],
+      "status": "filled",
+      "reason": "当前 section 已有可用内容，可作为 agent 二次收口底稿。",
+      "source_type": "source",
+      "related_contract_items": [],
+      "repair_hints": []
+    }
+  },
+  "gap_view": [],
+  "first_fix_order": [],
+  "recommended_next_step": "stable",
+  "skeleton_markdown": "# Round Prompt Skeleton\n\n- status: `skeleton_ready_for_agent_refinement`\n- input_type: `qualified_round_prompt`\n- gate_result: `PASS`\n- ready_for_delegation: `false`\n\n## Notes\n\n- 这是 skeleton / draft，只用于 agent 二次收口，不是最终可直接派单文本。\n\nRecommended next step: `stable`\n\n## 任务类型 [filled]\n\n- reason: 当前 section 已有可用内容，可作为 agent 二次收口底稿。\n- source_type: source\n- 本轮类型：`build`\n- 选择原因：`待 agent 根据 PRD 与反馈再确认`\n\n## 当前项目信息 [filled]\n\n- reason: 当前 section 已有可用内容，可作为 agent 二次收口底稿。\n- source_type: source\n- 项目名：`product-dev-loop-tool`\n- 当前轮次：`round-01`\n- 当前阶段：`Build Delegation`\n- 当前 PRD 状态：`locked`\n- 当前 Gate 状态：`PASS`\n\n## 执行前必读上下文 [filled]\n\n- reason: 当前 section 已有可用内容，可作为 agent 二次收口底稿。\n- source_type: inferred\n- 必读：`PROJECT_STATE.md`\n- 必读：`PRD.md`\n- 必读：最近一轮 `PROGRESS.md`\n- 必读：最近一轮 `IMPLEMENTATION_NOTES.md`\n- 按需补读：`ARCHITECTURE.md` / `CHANGE_PROPOSALS.md` / `TEST_RESULTS.md`\n\n## 本轮目标 [filled]\n\n- reason: 当前 section 已有可用内容，可作为 agent 二次收口底稿。\n- source_type: source\n- 本轮只解决：实现一个可从文件读取文本的 Prompt Gate Checker CLI，能输出 `input_type / gate_result / blockers / split_recommendation / pass_evidence_present`\n- 这轮完成后，用户可以用一条命令检查 raw request、pseudo-qualified prompt 和 qualified round prompt 的 Gate 结果\n- 本轮目标来源：`round-01 / Prompt Gate Checker MVP`\n\n## 本轮边界 [filled]\n\n- reason: 当前 section 已有可用内容，可作为 agent 二次收口底稿。\n- source_type: source\n- 必做：\n- CLI `gate` 命令\n- 规则化字段输出\n- `--json` 输出\n- 不做：\n- `contract` 命令\n- `log-gate` 命令\n- Web 页面\n- GUI\n- LLM API 接入\n- 保持不动：\n- 其他未进入 round-01 的能力\n\n## 验收标准 [filled]\n\n- reason: 当前 section 已有可用内容，可作为 agent 二次收口底稿。\n- source_type: source\n- 验收项 1：对 raw request 输入返回 `raw_request` 与 `REWRITE_REQUIRED`\n- 验收项 2：对 pseudo-qualified prompt 输入返回 `pseudo_qualified_prompt` 与拆轮建议\n- 验收项 3：终端默认输出稳定字段，`--json` 输出有效 JSON\n\n## 依赖与降级规则 [filled]\n\n- reason: 当前 section 已有可用内容，可作为 agent 二次收口底稿。\n- source_type: source\n- 关键依赖：本地 Python 3、规则文件、样例输入\n- 依赖满足时：按规则完成 gate CLI\n- 依赖不满足时允许的降级方案：如果样例文件缺失，可先补最小样例继续；如果 README 未补完整，不阻塞 CLI 验证\n- 哪些情况应直接标记阻塞，不继续扩做：如果输入文件无法读取，直接报错并停止，不自动猜测内容\n\n## 测试要求 [filled]\n\n- reason: 当前 section 已有可用内容，可作为 agent 二次收口底稿。\n- source_type: source\n- 返回测试入口、操作步骤、测试数据、预期结果、失败判定\n\n## 完成后必须结构化回传 [filled]\n\n- reason: 当前 section 已有可用内容，可作为 agent 二次收口底稿。\n- source_type: source\n1. 已完成\n2. 未完成\n3. 关键代码信息\n4. `stub / mock / 假数据 / 隐藏入口 / 未接线`\n5. 风险与需确认点\n6. 测试建议\n7. PRD 对照\n\n## PASS Evidence [filled]\n\n- reason: 当前 section 已有可用内容，可作为 agent 二次收口底稿。\n- source_type: source\n- Prompt Gate：`PASS`\n- Round main closure：`已具备，但 agent 应再确认一句话主闭环表述`\n- Why not split：`已具备，但 agent 应再确认为什么其余子项只是必要接线`\n- Fallback / blocker rule：`已具备，但 agent 应确认降级边界和直接阻塞条件保持清晰`\n- Delegation contract：`satisfied`\n- 说明：`这是 skeleton / draft，不是最终放行文本`\n"
+}

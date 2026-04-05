@@ -1,0 +1,36 @@
+{
+  "input_type": "ambiguous_input",
+  "gate_result": "CLARIFICATION_REQUIRED",
+  "task_type_guess": "无法稳定判断",
+  "blockers": [
+    "项目 / 轮次 / 阶段 / PRD 状态存在缺口或引用关系不清"
+  ],
+  "missing_or_weak_items": [
+    "acceptance",
+    "dependency_fallback_blocker",
+    "out_of_scope",
+    "prd_alignment",
+    "project_round_stage_prd",
+    "round_goal",
+    "structured_return",
+    "task_type",
+    "test_requirement"
+  ],
+  "split_recommendation": "可考虑拆轮；至少要补 why-not-split，并解释其余子项为什么只是必要接线。",
+  "pass_evidence_present": false,
+  "short_reason": "当前输入带有接手或续做语义，但上下文锚点不足，不能安全 rewrite。",
+  "project": null,
+  "round_id": null,
+  "stage": null,
+  "prd_status": null,
+  "is_pseudo_qualified": false,
+  "single_round_closure": false,
+  "next_action": "只问一个最小阻塞问题，再重新过 Gate。",
+  "minimal_clarification_question": "你这次要继续的是哪个项目？",
+  "clarification_reason": "项目未锁定，当前无法稳定判断这是哪个项目的 Gate 输入。",
+  "next_action_after_answer": "拿到项目名后，先用这条最短回复重新过 Gate，再判断是 rewrite 还是继续 clarify。",
+  "rewrite_actions": [],
+  "split_plan": [],
+  "missing_strengthening_items": [],
+  "source_summary": "继续小说项目上一轮的事情，先接手这个项目。 按之前那个方向继续推进就行，但我现在没有明确写项目名，也不确定当前是哪个 round。 你先判断一下这段输入能不能直接进入下一步。"
+}

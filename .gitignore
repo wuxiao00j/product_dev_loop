@@ -1,2 +1,5 @@
-projects/
 .DS_Store
+*.pyc
+**/__pycache__/
+skill/product_dev_loop/projects/
+tool/product_dev_loop_tool/projects/

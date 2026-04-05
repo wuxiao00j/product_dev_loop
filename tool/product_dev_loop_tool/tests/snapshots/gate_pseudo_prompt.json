@@ -1,0 +1,26 @@
+{
+  "input_type": "pseudo_qualified_prompt",
+  "gate_result": "REWRITE_REQUIRED",
+  "rewrite_actions": [
+    "add_contract_fields",
+    "add_fallback",
+    "add_pass_evidence",
+    "split",
+    "tighten_scope"
+  ],
+  "split_plan": [
+    "round-09A: 先闭环生成主路径，并把风格控制限定为该主路径的必要接线",
+    "round-09B: 单独补导出能力闭环",
+    "round-09C: 补 API 主入口接线",
+    "round-09D: 补 Web UI 主入口接线",
+    "round-09E: 补 CLI 主入口接线"
+  ],
+  "missing_strengthening_items": [
+    "fallback_blocker_rule",
+    "pass_evidence",
+    "prd_alignment",
+    "round_main_closure",
+    "tighter_out_of_scope",
+    "why_not_split"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "input_type": "pseudo_qualified_prompt",
+  "gate_result": "REWRITE_REQUIRED",
+  "status": "draft_not_ready_for_delegation",
+  "ready_for_delegation": false,
+  "deferred": false,
+  "recommended_next_step": "rewrite_more",
+  "missing_items": [
+    "fallback_blocker_rule",
+    "pass_evidence",
+    "prd_alignment",
+    "round_main_closure",
+    "tighter_out_of_scope",
+    "why_not_split"
+  ],
+  "rewrite_actions": [
+    "add_contract_fields",
+    "add_fallback",
+    "add_pass_evidence",
+    "split",
+    "tighten_scope"
+  ],
+  "first_fix_order": [
+    {
+      "section": "本轮目标",
+      "priority": "critical",
+      "expected_outcome": "边界、验收和拆轮判断会更容易对齐。",
+      "stop_condition": "目标收敛成一个单轮主闭环，并包含用户可见结果即可。",
+      "check_signal": "目标段只剩一个主闭环，且带用户可见结果。"
+    }
+  ],
+  "sections": {
+    "round_goal": {
+      "status": "weak"
+    },
+    "dependency_rules": {
+      "status": "weak"
+    },
+    "pass_evidence": {
+      "status": "weak"
+    }
+  }
+}

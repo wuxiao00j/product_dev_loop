@@ -1,0 +1,24 @@
+{
+  "input_type": "qualified_round_prompt",
+  "gate_result": "PASS",
+  "status": "skeleton_ready_for_agent_refinement",
+  "ready_for_delegation": false,
+  "deferred": false,
+  "recommended_next_step": "stable",
+  "gap_view": [],
+  "first_fix_order": [],
+  "sections": {
+    "task_type": {
+      "status": "filled"
+    },
+    "project_info": {
+      "status": "filled"
+    },
+    "round_goal": {
+      "status": "filled"
+    },
+    "pass_evidence": {
+      "status": "filled"
+    }
+  }
+}

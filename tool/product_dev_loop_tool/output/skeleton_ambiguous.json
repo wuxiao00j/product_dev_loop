@@ -1,0 +1,26 @@
+{
+  "input_type": "ambiguous_input",
+  "gate_result": "CLARIFICATION_REQUIRED",
+  "task_type_guess": "无法稳定判断",
+  "status": "deferred_until_clarification",
+  "ready_for_delegation": false,
+  "deferred": true,
+  "project": null,
+  "round_id": null,
+  "stage": null,
+  "prd_status": null,
+  "missing_items": [],
+  "rewrite_actions": [],
+  "split_plan": [],
+  "minimal_clarification_question": "你这次要继续的是哪个项目？",
+  "clarification_reason": "项目未锁定，当前无法稳定判断这是哪个项目的 Gate 输入。",
+  "next_action_after_answer": "拿到项目名后，先用这条最短回复重新过 Gate，再判断是 rewrite 还是继续 clarify。",
+  "notes": [
+    "需先澄清后再生成 skeleton，不应强行铺满 round prompt 段落。"
+  ],
+  "sections": {},
+  "gap_view": [],
+  "first_fix_order": [],
+  "recommended_next_step": "clarify_first",
+  "skeleton_markdown": "# Round Prompt Skeleton\n\n- status: `deferred_until_clarification`\n- input_type: `ambiguous_input`\n- gate_result: `CLARIFICATION_REQUIRED`\n- ready_for_delegation: `false`\n- skeleton_generation: `deferred_until_clarification`\n- recommended_next_step: `clarify_first`\n\n## Clarification Block\n\n- clarification_reason: 项目未锁定，当前无法稳定判断这是哪个项目的 Gate 输入。\n- minimal_clarification_question: 你这次要继续的是哪个项目？\n- next_action_after_answer: 拿到项目名后，先用这条最短回复重新过 Gate，再判断是 rewrite 还是继续 clarify。\n"
+}

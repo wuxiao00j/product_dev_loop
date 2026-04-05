@@ -1,0 +1,52 @@
+{
+  "input_type": "raw_request",
+  "gate_result": "REWRITE_REQUIRED",
+  "task_type_guess": "无法稳定判断",
+  "blockers": [],
+  "missing_or_weak_items": [
+    "acceptance",
+    "dependency_fallback_blocker",
+    "out_of_scope",
+    "prd_alignment",
+    "project_round_stage_prd",
+    "round_goal",
+    "structured_return",
+    "task_type",
+    "test_requirement"
+  ],
+  "split_recommendation": "可考虑拆轮；至少要补 why-not-split，并解释其余子项为什么只是必要接线。",
+  "pass_evidence_present": false,
+  "short_reason": "当前更像原始需求块，还没有收成可直接派单的 round prompt。",
+  "project": null,
+  "round_id": null,
+  "stage": null,
+  "prd_status": null,
+  "is_pseudo_qualified": false,
+  "single_round_closure": false,
+  "next_action": "先 rewrite 成单轮 round prompt，再重新过 Gate。",
+  "minimal_clarification_question": "",
+  "clarification_reason": "",
+  "next_action_after_answer": "",
+  "rewrite_actions": [
+    "add_contract_fields",
+    "add_fallback",
+    "add_pass_evidence",
+    "tighten_scope"
+  ],
+  "split_plan": [],
+  "missing_strengthening_items": [
+    "acceptance",
+    "fallback_blocker_rule",
+    "out_of_scope",
+    "pass_evidence",
+    "prd_alignment",
+    "project_round_stage_prd",
+    "round_goal",
+    "round_main_closure",
+    "structured_return",
+    "task_type",
+    "test_requirement",
+    "why_not_split"
+  ],
+  "source_summary": "把 `product_dev_loop` 先做成一个最小 CLI 工具，至少能检查 prompt gate、contract，并把 gate 结果记到 markdown。 这轮先别做 Web，也别接 LLM API。 我现在只是给你一..."
+}

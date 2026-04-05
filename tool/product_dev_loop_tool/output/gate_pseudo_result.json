@@ -1,0 +1,52 @@
+{
+  "input_type": "pseudo_qualified_prompt",
+  "gate_result": "REWRITE_REQUIRED",
+  "task_type_guess": "build",
+  "blockers": [
+    "fallback / blocker 规则无效或缺失",
+    "存在多主闭环或多入口并行改造风险",
+    "缺少 why-not-split",
+    "缺少完整 PASS evidence"
+  ],
+  "missing_or_weak_items": [
+    "dependency_fallback_blocker",
+    "out_of_scope",
+    "prd_alignment"
+  ],
+  "split_recommendation": "建议拆轮：先保留一个最小主路径闭环，再把 CLI / API / Web UI 分成后续轮次。",
+  "pass_evidence_present": false,
+  "short_reason": "输入看起来像 round prompt，但仍未证明自己是单轮最小闭环。",
+  "project": "novel-studio",
+  "round_id": "round-09",
+  "stage": "Build Delegation",
+  "prd_status": "locked",
+  "is_pseudo_qualified": true,
+  "single_round_closure": false,
+  "next_action": "先 rewrite，必要时拆轮；补齐 why-not-split、fallback/blocker 和 PASS evidence 后再 re-gate。",
+  "minimal_clarification_question": "",
+  "clarification_reason": "",
+  "next_action_after_answer": "",
+  "rewrite_actions": [
+    "add_contract_fields",
+    "add_fallback",
+    "add_pass_evidence",
+    "split",
+    "tighten_scope"
+  ],
+  "split_plan": [
+    "round-09A: 先闭环生成主路径，并把风格控制限定为该主路径的必要接线",
+    "round-09B: 单独补导出能力闭环",
+    "round-09C: 补 API 主入口接线",
+    "round-09D: 补 Web UI 主入口接线",
+    "round-09E: 补 CLI 主入口接线"
+  ],
+  "missing_strengthening_items": [
+    "fallback_blocker_rule",
+    "pass_evidence",
+    "prd_alignment",
+    "round_main_closure",
+    "tighter_out_of_scope",
+    "why_not_split"
+  ],
+  "source_summary": "你现在要执行 `novel-studio` 项目的 `round-09` 开发任务。 【任务类型】 - 本轮类型：`build` - 选择原因：`本轮要把小说工具的关键能力一起补全` 【当前项目信息】 - 项目名：`novel-stu..."
+}

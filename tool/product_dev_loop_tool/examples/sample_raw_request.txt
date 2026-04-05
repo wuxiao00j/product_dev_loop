@@ -1,0 +1,5 @@
+把 `product_dev_loop` 先做成一个最小 CLI 工具，至少能检查 prompt gate、contract，并把 gate 结果记到 markdown。
+
+这轮先别做 Web，也别接 LLM API。
+
+我现在只是给你一个原始需求块，你先帮我判断它还算不算能直接派给执行器。

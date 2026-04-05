@@ -1,0 +1,39 @@
+{
+  "contract_pass": false,
+  "missing_fields": [
+    "prd_alignment"
+  ],
+  "weak_fields": [
+    "dependency_fallback_blocker",
+    "out_of_scope"
+  ],
+  "risk_flags": [
+    "CLI / API / Web UI 多入口改造",
+    "fallback / blocker 规则为空壳或缺少明确降级边界",
+    "命中拆轮信号但缺少 why-not-split",
+    "多个核心能力主题同时出现",
+    "缺少完整 PASS evidence",
+    "虽然写了不做，但没有真正削掉并列主目标"
+  ],
+  "multi_closure_risk": "high",
+  "pass_evidence_present": false,
+  "why_not_split_present": false,
+  "fallback_blocker_present": false,
+  "summary": "输入仍未满足 Build Delegation 输入契约；需要先补齐缺字段、削减多主闭环风险或补 PASS evidence。",
+  "field_presence": {
+    "project_round_stage_prd": true,
+    "task_type": true,
+    "round_goal": true,
+    "out_of_scope": true,
+    "acceptance": true,
+    "dependency_fallback_blocker": true,
+    "structured_return": true,
+    "test_requirement": true,
+    "prd_alignment": false
+  },
+  "task_type_guess": "build",
+  "project": "novel-studio",
+  "round_id": "round-09",
+  "stage": "Build Delegation",
+  "prd_status": "locked"
+}

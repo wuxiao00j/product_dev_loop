@@ -1,0 +1,76 @@
+你现在要执行 `product-dev-loop-tool` 项目的 `round-01` 开发任务。
+
+【任务类型】
+- 本轮类型：`build`
+- 选择原因：`本轮只先闭环 Prompt Gate Checker CLI`
+
+【当前项目信息】
+- 项目名：`product-dev-loop-tool`
+- 当前轮次：`round-01`
+- 当前阶段：`Build Delegation`
+- 当前 PRD 状态：`locked`
+
+【执行前必读上下文】
+- 必读：`PROJECT_STATE.md`
+- 必读：`PRD.md`
+- 必读：最近一轮 `PROGRESS.md`
+- 必读：最近一轮 `IMPLEMENTATION_NOTES.md`
+
+【本轮目标】
+- 本轮只解决：实现一个可从文件读取文本的 Prompt Gate Checker CLI，能输出 `input_type / gate_result / blockers / split_recommendation / pass_evidence_present`
+- 这轮完成后，用户可以用一条命令检查 raw request、pseudo-qualified prompt 和 qualified round prompt 的 Gate 结果
+- 本轮目标来源：`round-01 / Prompt Gate Checker MVP`
+
+【本轮边界】
+- 必做：
+  - CLI `gate` 命令
+  - 规则化字段输出
+  - `--json` 输出
+- 不做：
+  - `contract` 命令
+  - `log-gate` 命令
+  - Web 页面
+  - GUI
+  - LLM API 接入
+- 保持不动：
+  - 其他未进入 round-01 的能力
+
+【验收标准】
+- 验收项 1：对 raw request 输入返回 `raw_request` 与 `REWRITE_REQUIRED`
+- 验收项 2：对 pseudo-qualified prompt 输入返回 `pseudo_qualified_prompt` 与拆轮建议
+- 验收项 3：终端默认输出稳定字段，`--json` 输出有效 JSON
+
+【依赖与降级规则】
+- 关键依赖：本地 Python 3、规则文件、样例输入
+- 依赖满足时：按规则完成 gate CLI
+- 依赖不满足时允许的降级方案：如果样例文件缺失，可先补最小样例继续；如果 README 未补完整，不阻塞 CLI 验证
+- 哪些情况应直接标记阻塞，不继续扩做：如果输入文件无法读取，直接报错并停止，不自动猜测内容
+
+【执行约束】
+- 只处理本轮目标，不顺手补 `contract`、`log-gate` 或 UI
+- `PRD.md` 已 `locked`，不得擅改定义
+
+【测试要求】
+- 返回测试入口、操作步骤、测试数据、预期结果、失败判定
+
+【完成后必须结构化回传】
+1. 已完成
+2. 未完成
+3. 关键代码信息
+4. `stub / mock / 假数据 / 隐藏入口 / 未接线`
+5. 风险与需确认点
+6. 测试建议
+7. PRD 对照
+
+【PRD 对照】
+- 对应条目：`round-01 / Prompt Gate Checker MVP`
+- 已满足：`CLI 入口、稳定输出、JSON 输出`
+- 未满足：`contract checker、logger`
+- 当前是否达成本轮验收：`若上述 3 条验收项都通过，则达成`
+
+【PASS Evidence】
+- Prompt Gate：`PASS`
+- Round main closure：`本轮唯一主闭环是把 Prompt Gate Checker CLI 跑通并可验证输出`
+- Why not split：`本轮只有 gate 一个主闭环；JSON 输出和样例验证只是这个闭环的必要接线，不是独立轮次`
+- Fallback / blocker rule：`如果样例文件缺失，可先补最小样例继续；如果输入文件无法读取则直接阻塞，不顺手改做其他命令`
+- Delegation contract：`satisfied`

@@ -1,0 +1,10 @@
+{
+  "contract_pass": true,
+  "missing_fields": [],
+  "weak_fields": [],
+  "risk_flags": [],
+  "multi_closure_risk": "low",
+  "pass_evidence_present": true,
+  "why_not_split_present": true,
+  "fallback_blocker_present": true
+}

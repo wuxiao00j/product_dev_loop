@@ -1,0 +1,27 @@
+{
+  "contract_pass": true,
+  "missing_fields": [],
+  "weak_fields": [],
+  "risk_flags": [],
+  "multi_closure_risk": "low",
+  "pass_evidence_present": true,
+  "why_not_split_present": true,
+  "fallback_blocker_present": true,
+  "summary": "输入契约字段齐全，PASS evidence 完整，未发现高风险多主闭环信号。",
+  "field_presence": {
+    "project_round_stage_prd": true,
+    "task_type": true,
+    "round_goal": true,
+    "out_of_scope": true,
+    "acceptance": true,
+    "dependency_fallback_blocker": true,
+    "structured_return": true,
+    "test_requirement": true,
+    "prd_alignment": true
+  },
+  "task_type_guess": "build",
+  "project": "product-dev-loop-tool",
+  "round_id": "round-01",
+  "stage": "Build Delegation",
+  "prd_status": "locked"
+}
